@@ -1,17 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="//at.alicdn.com/t/font_923863_oxla3hw200g.css"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      .loading {
+        width: 100vw;
+        height: 100vh;
+        background-color: gainsboro;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      .ten {
+        width: 30%;
+        height: 30%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .ten .circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: #ff4545;
+        margin-right: 5px;
+        animation: changeteneCircle 1s infinite ease-in-out;
+      }
+
+      .ten .circle:nth-of-type(2) {
+        animation-delay: 0.2s;
+      }
+
+      .ten .circle:nth-of-type(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes changeteneCircle {
+        0% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
   </head>
   <body>
     <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work
+        properly without JavaScript enabled. Please enable it to
+        continue.</strong
+      >
     </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="app">
+      <div class="loading">
+        <div class="ten">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
