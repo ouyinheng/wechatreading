@@ -54,4 +54,28 @@ export default {
 				})
 			})
 		},
+		getOriginSearch(url) {
+			return new Promise((resolve, reject) => {
+				let link = url.split('//book.qidian.com')[1]
+				axios.get(`/bookqd${link}`).then(res => {
+					let div = document.createElement('div');
+					div.innerHTML = res.data;
+					let list = div.querySelector('.book-detail-wrap');
+					let tag = div.querySelector('.book-content-wrap .book-state li');
+					let info = {
+						tag: [],
+						intro: ''
+					}
+					list.querySelectorAll('.book-info .tag a.red').forEach(item => {
+						info.tag.push(item.innerText)
+					})
+					info = {
+						intro: list.querySelector('.book-info .intro').innerText,
+						tag: Array.from(list.querySelectorAll('.book-info .tag a.red')).map(item => item.innerText),
+						author_tag: Array.from(tag.querySelectorAll('.detail .tags')).map(item => item.innerText)
+					}
+					resolve(info)
+				})
+			})
+		}
 }

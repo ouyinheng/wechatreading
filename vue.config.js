@@ -22,6 +22,14 @@ module.exports = {
 				pathRewrite: {
 					'^/qd': '/'
 				}
+			},
+			'/bookqd': {
+				target:'https://book.qidian.com',
+				ws: false,
+				changeOrigin: true,
+				pathRewrite: {
+					'^/bookqd': '/'
+				}
 			}
 		}
 	},

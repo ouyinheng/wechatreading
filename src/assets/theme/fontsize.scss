@@ -1,0 +1,7 @@
+@import './var.scss';
+
+@each $key, $val in $fontSize {
+	.font-#{$key} {
+		font-size: $val !important;
+	}
+}

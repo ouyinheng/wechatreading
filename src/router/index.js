@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from '../views/home/router'
+import bookinfo from '../views/bookinfo/router'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,8 +16,8 @@ const routes = [
 		children: [
 			...home
 		]
-	}
-  
+	},
+	...bookinfo
 ]
 
 const router = new VueRouter({

@@ -1,11 +1,15 @@
 <template>
     <div class="discover">
-         <swiper :options="swiperOption" ref="mySwiper" @someSwiperEvent="callback">
+         <swiper :options="swiperOption" ref="mySwiper" class="mySwiper" @someSwiperEvent="callback">
             <!-- slides -->
-            <swiper-slide v-for="(item, index) in recommend" :key="index">
-                <ul>
-                    <li v-for="(ele, ind) in item.list" :key="ind">{{item.tag}}</li>
-                </ul>
+            <swiper-slide class="swiper-slide" v-for="(item, index) in recommend" :key="index">
+                <v-card :loading="loading" class="mx-auto my-12 py-12 v-card" @click="toBookInfo(item)">
+                    <v-img :src="item.cover" class="v-img" height="150" width="100"></v-img>
+                    <h3 class="title font-xl mt-8">{{item.name}}</h3>
+                    <div class="grey--text font-md">
+                        {{item.author}}
+                    </div>
+                </v-card>
             </swiper-slide>
       </swiper>
     </div>
@@ -25,7 +29,10 @@ export default {
               // 所有的参数同 swiper 官方 api 参数
               // ...
             },
-            recommend: []
+            recommend: [],
+            height: '300px',
+            loading: false,
+            selection: 1,
         }
     },
     computed: {
@@ -38,6 +45,11 @@ export default {
         swiperSlide
     },
     methods:{
+        reserve () {
+            this.loading = true
+
+            setTimeout(() => (this.loading = false), 2000)
+      },
         callback() {
 
         },
@@ -80,19 +92,29 @@ export default {
 	    				}
 	    			})
 	    			rankwrap.push({tag, list})
-	               	// if(item.querySelector('.author a')) {
-		               // 	 rankwrap.push({
-		               //  	channel: item.querySelector('.author a').innerText,
-		               //  	name: item.querySelector('.book-info a').innerText,
-		               //  	tag: item.querySelector('.digital').innerText,
-		               //  	author: item.querySelector('.author .writer').innerText,
-		               //  	cover: item.querySelector('.book-cover .link img').getAttribute('src'),
-		               //  })
-	               	// }
+	               	if(item.querySelector('.author a')) {
+		               	 this.recommend.push({
+		                	channel: item.querySelector('.author a').innerText,
+                            name: item.querySelector('.book-info a').innerText,
+		                	link: item.querySelector('.book-info a').getAttribute('href'),
+		                	tag: item.querySelector('.digital').innerText,
+		                	author: item.querySelector('.author .writer').innerText,
+		                	cover: item.querySelector('.book-cover .link img').getAttribute('src'),
+		                })
+	               	}
 				})
-				this.recommend = rankwrap
+				// this.recommend = rankwrap
+                console.log(this.recommend)
 			})
 		},
+        toBookInfo(item) {
+            this.$router.push({
+                name: 'bookinfo',
+                params: {
+                    item
+                }
+            })
+        }
     },
     created() {
         // this.axios.get('/api/search.php?q=诡秘之主').then(res => {
@@ -101,23 +123,40 @@ export default {
         this.getHomePage()
     },
     mounted() {
-        this.swiper.slideTo(3, 1000, false)
+        this.swiper.slideTo(0, 1000, false);
+
     }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .discover {
-        height: 90%;
+        width: 100%;
+        height: 100%;
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: space-around;
-        .swiper-container {
-            width: 90vw;
-            height: 96%;
-            box-shadow: 0px 0px 1px 1px gainsboro;
-            border-radius: 10px;
-            padding: 10px 20px 10px 20px;
+        position: relative;
+        .swiper-slide {
+            width: 100vw;
+            .v-card {
+                width: 90vw;
+                border-radius: 10px;
+                height: calc(100vh - 100px);
+                margin: 0 auto;
+                text-align: center;
+                box-sizing: border-box;
+                .title {
+                    text-align: center;
+                    margin: 0 auto;
+                    font-weight: bold;
+                }
+                .v-img {
+                    margin: 0 auto;
+                    border-radius: 0 ;
+                }
+            }
         }
     }
 </style>

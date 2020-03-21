@@ -2,7 +2,9 @@
     <v-app class="basic_home">
         <section class="section">
             <transition name="page-transfer" mode="out-in">
-                <router-view class="router_view"/>
+                <keep-alive>
+                    <router-view class="router_view"/>
+                </keep-alive>
             </transition>
         </section>
         <footer class="footer">
@@ -86,13 +88,12 @@ export default {
     z-index: 10;
     overflow: hidden;
     .section {
-        position: absolute;
+        position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 60px;
         overflow: hidden;
-        height: 100%;
     }
     .footer {
         position: absolute;
@@ -102,6 +103,9 @@ export default {
     }
     .router_view {
         transition: all .1s linear;
+        position: relative;
+        width: 100%;
+        height: 100%;
     }
     .page-transfer {
         &-enter, &-active {
