@@ -18,6 +18,9 @@ export default [
     {
         path: '/home/mine',
         name: 'mine',
-        component: () => import(/* webpackChunkName: "mine" */ './mine/index.vue')
+        component: () => import(/* webpackChunkName: "mine" */ './mine/index.vue'),
+        children: [
+
+        ]
     }
 ]

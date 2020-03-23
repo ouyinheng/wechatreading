@@ -30,6 +30,13 @@ module.exports = {
 				pathRewrite: {
 					'^/bookqd': '/'
 				}
+			},
+			'/huaban': {
+				target: 'https://huaban.com',
+				changeOrigin: true,
+				pathRewrite: {
+					'^/huaban': '/'
+				}
 			}
 		}
 	},

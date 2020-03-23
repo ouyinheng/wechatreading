@@ -1,7 +1,7 @@
 <template>
 	<v-app>
-		<transition>
-			<router-view/>
+        <transition name="page-transfer" mode="out-in">
+			<router-view class="router_view"/>
 		</transition>
 	</v-app>
 </template>
