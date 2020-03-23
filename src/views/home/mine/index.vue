@@ -65,18 +65,17 @@
 	    },
 	    methods: {
 	    	randomList() {
-	    		let index = parseInt(Math.random()*(this.pic_list.length-1));
+				let index = parseInt(Math.random()*(this.pic_list.length-1));
 		    	this.picUrl = this.pic_list[index]
 	    	},
 	    	toPictureHandler() {
-	    		console.log('adsf')
 	    		this.$router.push({
 	    			name: 'picture'
 	    		})
 	    	}
 	    },
 	    created() {
-	    	getRandomPicture.getPicture().then(res => {
+	    	getRandomPicture.getPicture('/huaban/favorite/beauty').then(res => {
 	    		this.pic_list = res;
 		    	this.randomList();
 		    	// setInterval(() => {

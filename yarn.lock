@@ -4621,6 +4621,11 @@ mamacro@^0.0.3:
   resolved "https://registry.yarnpkg.com/mamacro/-/mamacro-0.0.3.tgz#ad2c9576197c9f1abf308d0787865bd975a3f3e4"
   integrity sha512-qMEwh+UujcQ+kbz3T6V+wAmO2U8veoq2w+3wY8MquqwVA3jChfwY+Tk52GZKDfACEPjuZ7r2oJLejwpt8jtwTA==
 
+mand-mobile@^2.5.8:
+  version "2.5.8"
+  resolved "https://registry.npm.taobao.org/mand-mobile/download/mand-mobile-2.5.8.tgz#721d0407cca0a2beb9dfc959bc5dab83de6f777b"
+  integrity sha1-ch0EB8ygor6538lZvF2rg95vd3s=
+
 map-age-cleaner@^0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/map-age-cleaner/-/map-age-cleaner-0.1.3.tgz#7d583a7306434c055fe474b0f45078e6e1b4b92a"
