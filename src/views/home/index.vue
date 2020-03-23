@@ -101,26 +101,6 @@ export default {
         left: 0;
         right: 0;
     }
-    .router_view {
-        transition: all .1s linear;
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    .page-transfer {
-        &-enter, &-active {
-            transform: translateX(100px);
-        }
-        &-enter-to {
-            transform: translateX(0px);
-        }
-        &-leave, &-leave-active {
-            transform: translateX(0px);
-        }
-        &-leave-to {
-            transform: translateX(0px);
-        }
-    }
-
+    
 }
 </style>

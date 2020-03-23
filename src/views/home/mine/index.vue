@@ -40,6 +40,15 @@
 	          		<v-list-item-subtitle>history</v-list-item-subtitle>
 	        	</v-list-item-content>
 			</v-list-item>
+			<v-list-item @click="toPictureHandler">
+	        	<v-list-item-icon>
+	          		<v-icon color="indigo">iconfont icon-tupian</v-icon>
+	        	</v-list-item-icon>
+	        	<v-list-item-content>
+	          		<v-list-item-title>图片</v-list-item-title>
+	          		<v-list-item-subtitle>picture</v-list-item-subtitle>
+	        	</v-list-item-content>
+			</v-list-item>
 		</v-list>
 	  </v-card>
 </template>
@@ -58,6 +67,12 @@
 	    	randomList() {
 	    		let index = parseInt(Math.random()*(this.pic_list.length-1));
 		    	this.picUrl = this.pic_list[index]
+	    	},
+	    	toPictureHandler() {
+	    		console.log('adsf')
+	    		this.$router.push({
+	    			name: 'picture'
+	    		})
 	    	}
 	    },
 	    created() {
