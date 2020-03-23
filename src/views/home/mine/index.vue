@@ -13,7 +13,7 @@
         <section></section>
     </v-app> -->
     <v-card class="mine mx-auto">
-	    <v-img class="header" src="https://cdn.vuetifyjs.com/images/john.jpg" height="300px" dark>
+	    <v-img class="header" :src="picUrl" height="300px" dark>
 		    <div>
 		        <v-card-title class="header-btn">
 		          	<v-btn dark icon>
@@ -45,17 +45,38 @@
 </template>
 
 <script>
-export default {
-    name: 'mine',
-    data() {
-        return {
-        }
-    }
-}
+	import getRandomPicture from '@/utils/getRandomPicture'
+	export default {
+	    name: 'mine',
+	    data() {
+	        return {
+	        	picUrl: '',
+	        	pic_list: []
+	        }
+	    },
+	    methods: {
+	    	randomList() {
+	    		let index = parseInt(Math.random()*(this.pic_list.length-1));
+		    	this.picUrl = this.pic_list[index]
+	    	}
+	    },
+	    created() {
+	    	getRandomPicture.getPicture().then(res => {
+	    		this.pic_list = res;
+		    	this.randomList();
+		    	// setInterval(() => {
+		    	// 	this.randomList()
+		    	// }, 10000)
+	    	})
+	    }
+	}
 </script>
 
 <style lang="scss" scoped>
 .mine {
+	.v-image {
+		backgroud-color: gray;
+	}
     .header {
     	width: 100%;
 		&-btn {
