@@ -32,7 +32,7 @@ export default {
             activeBtn: 1,
             bottom_btn: [{
                 name: '发现',
-                icon: 'icon-faxian',
+                icon: 'icon-faxian1',
                 path: '/discover'
             }, {
                 name: '书架',
@@ -44,7 +44,7 @@ export default {
                 path: '/lookat'
             }, {
                 name: '我',
-                icon: 'icon-shujia',
+                icon: 'icon-ren',
                 path: '/mine'
             }]
         }

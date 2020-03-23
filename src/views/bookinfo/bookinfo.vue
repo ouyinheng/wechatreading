@@ -4,30 +4,19 @@
 			leaveTop: leave
 		}">
 		<v-toolbar>
-            <v-btn class="hidden-xs-only iconfont icon-faxian">
-                <!-- <v-icon>mdi-arrow-left</v-icon> -->
-                <span class="iconfont icon-faxian"></span>
-            </v-btn>
-            <v-toolbar-title @click="back">Title</v-toolbar-title>
+			<span @click="back" class="iconfont icon-right"></span>
+			<span class="iconfont icon-add ml-6" @click="addBookrack"><i class="ml-2" v-if="showAdd">加入书架</i></span>
+            <!-- <v-toolbar-title @click="back">Title</v-toolbar-title> -->
             <v-spacer></v-spacer>
-            <v-btn icon class="hidden-xs-only">
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
+			<v-btn icon>
+				<v-icon>mdi-dots-vertical</v-icon>
+			</v-btn>
        </v-toolbar>
 	</div>
 		<div class="bottom" :class="{
 			leaveBottom: leave
 		}">
 			<v-toolbar>
-	            <v-btn icon class="hidden-xs-only">
-	                <!-- <v-icon>mdi-arrow-left</v-icon> -->
-	                <span class="iconfont icon-down"></span>
-	            </v-btn>
-	            <v-toolbar-title>Title</v-toolbar-title>
-	            <v-spacer></v-spacer>
-	            <v-btn icon class="hidden-xs-only">
-	              <v-icon>mdi-magnify</v-icon>
-	            </v-btn>
 	       </v-toolbar>
 		</div>
 		<v-card :loading="loading" class="mx-auto my-4 v-cards" @click="setLeave">
@@ -56,6 +45,23 @@
 			      </v-btn>
 		    </v-card-actions>
 		</v-card>
+
+		<v-dialog v-model="dialog" max-width="500px">
+			<v-card>
+				<v-list disabled>
+					<v-list-item-group v-model="item" color="primary">
+						<v-list-item v-for="(item, i) in items" :key="i" @click="dialog = false">
+							<v-list-item-icon>
+								<v-icon v-text="item.icon"></v-icon>
+							</v-list-item-icon>
+							<v-list-item-content>
+								<v-list-item-title v-text="item.title" :class="item.class"></v-list-item-title>
+							</v-list-item-content>
+						</v-list-item>
+					</v-list-item-group>
+				</v-list>
+			</v-card>
+		</v-dialog>
 	</div>
 </template>
 
@@ -67,7 +73,27 @@
 		data: () => ({
 			loading: true,
 	      	selection: 0,
-	      	leave: true,
+			leave: true,
+			showAdd: true,
+			dialog: false,
+			item: '',
+			items: [
+				{
+					title: '下载到本地',
+					icon: 'iconfont icon-xiazai',
+					class: ''
+				},
+				{
+					title: '移动到...',
+					icon: 'iconfont icon-bianji',
+					class: ''
+				},
+				{
+					title: '移除书架',
+					icon: 'iconfont icon-shanchu danger',
+					class: 'danger'
+				},
+			],
 	      	info: {
 	      		
 	      	}
@@ -83,7 +109,14 @@
 	      	},
 	      	back() {
 	      		this.$router.back()
-	      	}
+			},
+			addBookrack() {
+				if(this.showAdd) {
+					this.showAdd = false;
+				} else {
+					this.dialog = true;
+				}
+			}
 	    },
 		created() {
 			let info = this.$route.params.item
@@ -109,6 +142,7 @@
 <style lang="scss" scoped>
 	.bookinfo {
 		position: relative;
+		overflow: hidden;
 		.top {
 			position: absolute;
 			top: 0;
@@ -121,7 +155,7 @@
 		}
 		.bottom {
 			position: absolute;
-			bottom: -10px;
+			bottom: 0px;
 			left: 0;
 			right: 0;
 			height: 50px;
@@ -149,6 +183,18 @@
 			.v-image__image.v-image__image--cover {
 				transform: scale(100)
 			}
+		}
+	}
+	.v-dialog {
+		margin: 45px;
+		.v-card {
+			border-radius: 10px;
+		}
+		.v-list-item__icon {
+			margin-right: 10px;
+		}
+		.danger{
+			color: red !important;
 		}
 	}
 </style>

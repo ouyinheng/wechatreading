@@ -17,3 +17,9 @@ export default {
 	}),
 };
 </script>
+
+<style lang="scss" scoped>
+#app {
+	background-color: #EBECEE;
+}
+</style>
