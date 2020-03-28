@@ -13,7 +13,7 @@
         <section></section>
     </v-app> -->
     <v-card class="mine mx-auto">
-	    <v-img class="header" :src="picUrl" height="300px" dark>
+	    <v-img class="header" :src="picUrl" height="300px" dark gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)">
 		    <div>
 		        <v-card-title class="header-btn">
 		          	<v-btn dark icon>

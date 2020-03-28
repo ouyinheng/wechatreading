@@ -10,36 +10,34 @@
 	        	<v-icon>mdi-magnify</v-icon>
 	      	</v-btn>
 	    </v-toolbar>
-	    <v-container fluid class="picture-container" v-if="!error">
-			<md-scroll-view ref="scrollView" :scrolling-x="false" @end-reached="$_onEndReached">
-				<v-row dense>
-					<v-col v-for="(item, index) in pic_list" :key="index" :cols="item.col" @click="showPic(item)">
-						<v-card>
-							<v-img
-								:src="'http://hbimg.huabanimg.com/'+item.file.key"
-								class="white--text align-end"
-								gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-								height="200px"
-							>
-								<v-card-title v-text="item.user.username"></v-card-title>
-							</v-img>
-							<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn icon>
-									<v-icon>mdi-heart</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon>mdi-bookmark</v-icon>
-								</v-btn>
-								<v-btn icon>
-									<v-icon>mdi-share-variant</v-icon>
-								</v-btn>
-							</v-card-actions>
-						</v-card>
-					</v-col>
-				</v-row>
-				<md-scroll-view-more slot="more" :is-finished="isFinished"></md-scroll-view-more>
-			</md-scroll-view>
+	    <v-container fluid class="picture-container" v-if="!isError">
+			<v-row dense>
+				<v-col v-for="(item, index) in pic_list" :key="index" :cols="item.col" @click="showPic(item)">
+					<v-card>
+						<v-img
+							:src="'http://hbimg.huabanimg.com/'+item.file.key"
+							class="white--text align-end"
+							gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+							height="200px"
+						>
+							<v-card-title v-text="item.user.username"></v-card-title>
+						</v-img>
+						<v-card-actions>
+							<v-spacer></v-spacer>
+							<v-btn icon>
+								<v-icon>mdi-heart</v-icon>
+							</v-btn>
+							<v-btn icon>
+								<v-icon>mdi-bookmark</v-icon>
+							</v-btn>
+							<v-btn icon>
+								<v-icon>mdi-share-variant</v-icon>
+							</v-btn>
+						</v-card-actions>
+					</v-card>
+				</v-col>
+				<v-col><v-btn text small color="primary" @click="loadmore">加载更多</v-btn></v-col>
+			</v-row>
 	    </v-container>
 		<md-image-viewer
 			v-model="isViewerShow"
@@ -47,18 +45,24 @@
 			:has-dots="true"
 			:initial-index="viewerIndex">
 		</md-image-viewer>
-		<md-result-page
-			v-if="error"
-			type="network"
-			subtext="点击屏幕，重新加载">
-		</md-result-page>
+		<div @click="load" class="error-page">
+			<md-result-page
+				v-if="isError"
+				type="network"
+				subtext="点击屏幕，重新加载">
+			</md-result-page>
+		</div>
 	 </v-card>
 </template>
 
 <script>
 	import getRandomPicture from '@/utils/getRandomPicture'
+	import {ResultPage} from 'mand-mobile'
 	export default {
 	    name: 'mine',
+	    components: {
+	    	[ResultPage.name]: ResultPage,
+	    },
 	    data: () => ({
         	picUrl: '',
         	pic_list: [],
@@ -69,7 +73,7 @@
 			isFinished: false,
 			limit: 20,
 			wfl: 1,
-			error: false
+			isError: false
 	    }),
 	    methods: {
 	    	back() {
@@ -77,6 +81,7 @@
 	    	},
 	    	load() {
 		    	getRandomPicture.getPictureList('/huaban/favorite/beauty').then(res => {
+		    		console.log('res', res)
 		    		res.forEach(item => {
 		    			if(item.file.width%5===0) {
 		    				item.col = 6;
@@ -86,7 +91,8 @@
 		    		})
 		    		this.pic_list = res;
 		    	}).catch(err => {
-					this.error = true;
+		    		console.log('err', err)
+					this.isError = true;
 				})
 	    	},
 	    	loadmore() {
@@ -95,6 +101,7 @@
 				}
 	            const url = `/huaban/favorite/beauty?k84h06q1&max=${this.pic_list[this.pic_list.length-1]['pin_id']}&limit=${this.limit}&wfl=${this.wfl}`;
 	            getRandomPicture.getPictureList(url).then(res => {
+		    		console.log(res)
 					res.forEach(item => {
 		    			if(item.file.width%5===0) {
 		    				item.col = 6;
@@ -104,7 +111,8 @@
 		    		})
 		    		this.pic_list.push(...res);
 		    	}).catch(err => {
-					this.error = true;
+		    		console.log(err)
+					this.isError = true;
 				})	
 			},
 			showPic(row) {
@@ -130,7 +138,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .picture {
 	position: relative;
 	.picture_toolbar {
@@ -145,6 +153,19 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		margin-top: 50px;
+	}
+	.md-result-text {
+		font-size: 1.25rem;
+	}
+	.md-result-subtext {
+		font-size: 0.875rem
+	}
+	.error-page {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
 	}
 }
 </style>
