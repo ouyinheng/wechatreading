@@ -3,7 +3,7 @@
          <swiper :options="swiperOption" ref="mySwiper" class="mySwiper" @someSwiperEvent="callback">
             <!-- slides -->
             <swiper-slide class="swiper-slide" v-for="(item, index) in recommend" :key="index">
-                <v-card :loading="loading" class="mx-auto my-12 py-12 v-card" @click="toBookInfo(item)">
+                <v-card :loading="loading" class="mx-auto my-12 py-12 v-card" @click.stop="toBookInfo(item)">
                     <v-img :src="item.cover" class="v-img" height="150" width="100"></v-img>
                     <h3 class="title font-xl mt-8">{{item.name}}</h3>
                     <div class="grey--text font-md">

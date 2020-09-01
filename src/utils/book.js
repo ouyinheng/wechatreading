@@ -77,5 +77,17 @@ export default {
 					resolve(info)
 				})
 			})
-		}
+        },
+        // 获取搜索框placeholder
+        getPlaceholder() {
+            return new Promise((resolve, reject) => {
+				axios.get(`/qd`).then(res => {
+					let div = document.createElement('div');
+					div.innerHTML = res.data;
+					let list =  div.querySelector('#s-box');
+                    const placeholder = list.getAttribute('placeholder');
+                    placeholder ? resolve(placeholder) : reject('请输入书名或作者名')
+                })
+            })
+        }
 }

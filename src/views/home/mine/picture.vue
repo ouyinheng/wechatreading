@@ -41,17 +41,17 @@
 				<md-scroll-view-more slot="more" :is-finished="isFinished"></md-scroll-view-more>
 			</md-scroll-view>
 	    </v-container>
-		<md-image-viewer
+		<!-- <md-image-viewer
 			v-model="isViewerShow"
 			:list="previewList"
 			:has-dots="true"
 			:initial-index="viewerIndex">
-		</md-image-viewer>
-		<md-result-page
+		</md-image-viewer> -->
+		<!-- <md-result-page
 			v-if="error"
 			type="network"
 			subtext="点击屏幕，重新加载">
-		</md-result-page>
+		</md-result-page> -->
 	 </v-card>
 </template>
 

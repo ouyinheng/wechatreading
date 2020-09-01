@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from '../views/home/router'
 import bookinfo from '../views/bookinfo/router'
+import somePages from '../views/pages/routers.js'
 Vue.use(VueRouter)
 
 const routes = [
@@ -17,7 +18,8 @@ const routes = [
 			...home
 		]
 	},
-	...bookinfo
+    ...bookinfo,
+    ...somePages
 ]
 
 const router = new VueRouter({

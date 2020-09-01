@@ -20,7 +20,6 @@ export default [
         name: 'mine',
         component: () => import(/* webpackChunkName: "mine" */ './mine/index.vue'),
         children: [
-
         ]
     }
 ]

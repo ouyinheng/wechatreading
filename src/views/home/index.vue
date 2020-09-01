@@ -44,7 +44,7 @@ export default {
                 path: '/lookat'
             }, {
                 name: '我',
-                icon: 'icon-ren',
+                icon: 'icon-wode',
                 path: '/mine'
             }]
         }
@@ -92,7 +92,7 @@ export default {
         top: 0;
         left: 0;
         right: 0;
-        bottom: 60px;
+        bottom: 57px;
         overflow: hidden;
     }
     .footer {
