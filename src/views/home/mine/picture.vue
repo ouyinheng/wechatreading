@@ -41,12 +41,12 @@
 				<md-scroll-view-more slot="more" :is-finished="isFinished"></md-scroll-view-more>
 			</md-scroll-view>
 	    </v-container>
-		<!-- <md-image-viewer
+		<md-image-viewer
 			v-model="isViewerShow"
 			:list="previewList"
 			:has-dots="true"
 			:initial-index="viewerIndex">
-		</md-image-viewer> -->
+		</md-image-viewer>
 		<!-- <md-result-page
 			v-if="error"
 			type="network"
@@ -77,13 +77,14 @@
 	    	},
 	    	load() {
 		    	getRandomPicture.getPictureList('/huaban/favorite/beauty').then(res => {
+                    console.log(res)
 		    		res.forEach(item => {
 		    			if(item.file.width%5===0) {
 		    				item.col = 6;
 		    			} else {
 		    				item.col = 6;
 		    			}
-		    		})
+                    })
 		    		this.pic_list = res;
 		    	}).catch(err => {
 					this.error = true;

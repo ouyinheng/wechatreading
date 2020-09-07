@@ -19,7 +19,7 @@
 			<v-toolbar>
 	       </v-toolbar>
 		</div>
-		<v-card :loading="loading" class="mx-auto my-4 v-cards" @click="setLeave">
+		<div :loading="loading" class="mx-auto my-4 v-cards card_group" @click="setLeave">
 		    <v-img width="100" height="150" :src="info.cover"></v-img>
     		<v-card-title>{{info.name}}</v-card-title>
 		    <v-card-text>
@@ -27,9 +27,10 @@
 			        <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
 			        <div class="grey--text ml-4">4.5 (413)</div>
 		      	</v-row> -->
-		      	<div class="my-4 subtitle-1" v-html="info.author">
+		      	<div class="my-4 subtitle-1">
+		        	{{info.author}}
 		      	</div>
-		      <div>{{info.desc}}</div>
+		      <div class="book_desc">{{info.desc}}</div>
 		    </v-card-text>
 		    <v-divider class="mx-4"></v-divider>
 		    <v-card-title>标签</v-card-title>
@@ -43,7 +44,7 @@
 			        	Reserve
 			      </v-btn>
 		    </v-card-actions>
-		</v-card>
+		</div>
 
 		<v-dialog v-model="dialog" max-width="500px">
 			<v-card>
@@ -61,6 +62,11 @@
 				</v-list>
 			</v-card>
 		</v-dialog>
+        <v-dialog v-model="desc_details" class="desc_details">
+			<v-card>
+				adf
+			</v-card>
+		</v-dialog>
 	</div>
 </template>
 
@@ -74,7 +80,8 @@
 	      	selection: 0,
 			leave: true,
 			showAdd: true,
-			dialog: false,
+            dialog: false,
+            desc_details: true,
 			item: '',
 			items: [
 				{
@@ -115,25 +122,46 @@
 				} else {
 					this.dialog = true;
 				}
-			}
+            },
+            getBookInfo(link) {
+                this.axios.get(`/jiutao/${link}`).then(res => {
+                	this.loading = false;
+                    console.log(res)
+                    let div = document.createElement('div');
+                    div.innerHTML = res.data;
+                    let dom = div.querySelector('.layui-main .detail');
+                    let content = div.querySelector('.layui-main .content');
+                    this.info = {
+                        cover: dom.querySelector('.bookimg img').getAttribute('src'),
+                        name: dom.querySelector('h1').innerText,
+                        channel: dom.querySelector('p').innerText,
+                        tag: [],
+                        author: dom.querySelector('p').innerText,
+                        desc: content.querySelector('.intro').innerText,
+                        link: dom.querySelector('.action a').getAttribute('href'),
+                        author_tag: []
+                    }
+                    console.log(this.info)
+                })
+            }
 	    },
 		created() {
-			let info = this.$route.params.item
-			origin.getOriginSearch(info.link).then(res => {
-				this.loading = false;
-				let qd_info = res 
-				this.info = {
-					cover: info.cover,
-					name: info.name,
-					channel: info.channel,
-					tag: qd_info.tag,
-					author: info.author,
-					desc: qd_info.intro,
-					link: info.link,
-					author_tag: [info.tag, ...qd_info.author_tag, ...qd_info.tag]
-                }
-                console.log(this.info)
-			})
+            let link = decodeURIComponent(this.$route.query.link)
+            this.getBookInfo(link)
+			// origin.getOriginSearch(info.link).then(res => {
+			// 	this.loading = false;
+			// 	let qd_info = res 
+			// 	this.info = {
+			// 		cover: info.cover,
+			// 		name: info.name,
+			// 		channel: info.channel,
+			// 		tag: qd_info.tag,
+			// 		author: info.author,
+			// 		desc: qd_info.intro,
+			// 		link: info.link,
+			// 		author_tag: [info.tag, ...qd_info.author_tag, ...qd_info.tag]
+			// 	}
+			// })
 			
 		}
 	}
@@ -143,6 +171,11 @@
 	.bookinfo {
 		position: relative;
 		overflow: hidden;
+        .card_group {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+        }
 		.top {
 			position: absolute;
 			top: 0;
@@ -178,6 +211,17 @@
 						0px 0px 2px 0px rgba(0, 0, 0, 0.14), 
 						0px 0px 1px 0px rgba(0, 0, 0, 0.12)!important;
 		}
+        .book_desc {
+            line-height: 1.1875rem;
+            display: -webkit-box;
+            height: 5rem;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            font-size: .875rem;
+            overflow: hidden;
+            margin: .375rem 0;
+            color: #969ba3;
+        }
 		.v-image {
 			margin: 0 auto;
 			.v-image__image.v-image__image--cover {

@@ -9,8 +9,9 @@ export default {
 				let srcList = [];
 				let html = res.data;
 				let filestr = html.split('app.page["pins"] = ')[1];
-	            filestr = filestr.split(';')[0];
-	            let imgList = JSON.parse(filestr)
+                filestr = filestr.split('];')[0];
+                console.log(filestr)
+	            let imgList = JSON.parse(filestr+']')
 	            imgList.forEach(item => {
 	                srcList.push('http://hbimg.huabanimg.com/'+item.file.key)
 	            })
@@ -24,8 +25,8 @@ export default {
 				let srcList = [];
 				let html = res.data;
 				let filestr = html.split('app.page["pins"] = ')[1];
-	            filestr = filestr.split(';')[0];
-	            let imgList = JSON.parse(filestr)
+	            filestr = filestr.split('];')[0];
+	            let imgList = JSON.parse(filestr + ']')
 	            resolve(imgList)
 			}).catch(err => {
 				reject(true)
