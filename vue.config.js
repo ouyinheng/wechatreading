@@ -37,7 +37,14 @@ module.exports = {
 				pathRewrite: {
 					'^/huaban': '/'
 				}
-			}
+            },
+            'jiutao': {
+                target: 'https://www.9txs.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/jiutao': '/'
+                }
+            }
 		}
 	},
 	"transpileDependencies": [

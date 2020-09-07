@@ -7,6 +7,7 @@ import axios from 'axios';
 import '@/assets/theme/index.scss';
 Vue.config.productionTip = false
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import globalConfig from './static/config'
 // import mandMobile from 'mand-mobile'
 // import 'mand-mobile/lib/mand-mobile.css'
 
@@ -14,6 +15,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 // require styles
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
+Vue.prototype.globalConfig = globalConfig;
 Vue.prototype.axios = axios;
 new Vue({
   router,
