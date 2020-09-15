@@ -72,7 +72,8 @@
 
 <script>
 	import parseSearch from '@/utils/search.js'
-	import origin from '@/utils/book.js'
+    import origin from '@/utils/book.js'
+    import dbOption from '@/utils/db/bookrack.js'
 	export default {
 		name: 'bookinfo',
 		data: () => ({
@@ -81,7 +82,7 @@
 			leave: true,
 			showAdd: true,
             dialog: false,
-            desc_details: true,
+            desc_details: false,
 			item: '',
 			items: [
 				{
@@ -102,7 +103,15 @@
 			],
 	      	info: {
 	      		
-	      	}
+            },
+            params: {
+                id: '',
+                bookName: '',
+                link: '',
+                cover: '',
+                newCharpter: '',
+                author: '',
+            }
 		}),
 
 	    methods: {
@@ -118,12 +127,14 @@
 			},
 			addBookrack() {
 				if(this.showAdd) {
-					this.showAdd = false;
+                    this.showAdd = false;
+                    dbOption.insertBook(this.params)
 				} else {
 					this.dialog = true;
 				}
             },
             getBookInfo(link) {
+                this.params.id = link.split('.')[0].split('/')[2];
                 this.axios.get(`/jiutao/${link}`).then(res => {
                 	this.loading = false;
                     console.log(res)
@@ -141,7 +152,12 @@
                         link: dom.querySelector('.action a').getAttribute('href'),
                         author_tag: []
                     }
-                    console.log(this.info)
+                    this.params.bookName = this.info.name;
+                    this.params.link = link;
+                    this.params.cover = this.info.cover;
+                    // this.params.newCharpter = this.info.newCharpter;
+                    this.params.author = this.info.author;
+                    console.log(this.params)
                 })
             }
 	    },
