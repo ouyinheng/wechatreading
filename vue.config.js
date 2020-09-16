@@ -6,13 +6,24 @@ module.exports = {
 		proxy: {
 			'/api': {
 				// 目标 API 地址
-				target: 'http://www.mangg.com',
+				target: 'https://www.toutiao.com',
 				// 如果要代理 websockets
 				ws: false,
 				// 将主机标头的原点更改为目标URL
 				changeOrigin: true,
 				pathRewrite: {
                     '^/api': '/'
+                }
+            },
+            '/apit': {
+				// 目标 API 地址
+				target: 'https://m.toutiao.com',
+				// 如果要代理 websockets
+				ws: false,
+				// 将主机标头的原点更改为目标URL
+				changeOrigin: true,
+				pathRewrite: {
+                    '^/apit': '/'
                 }
 			},
 			'/qd': {

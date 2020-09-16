@@ -8,5 +8,9 @@ export default [
         path: '/bookDetails',
         name: 'bookDetails',
         component: () => import(/* webpackChunkName: "otherPages" */ './bookDetails.vue')
+    }, {
+        path: '/discoverInfo',
+        name: 'discoverInfo',
+        component: () => import(/* webpackChunkName: "otherPages" */ './discoverInfo.vue')
     }, 
 ]

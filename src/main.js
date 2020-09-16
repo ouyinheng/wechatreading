@@ -16,6 +16,10 @@ Vue.use(mandMobile)
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
 Vue.prototype.globalConfig = globalConfig;
+
+axios.defaults.headers = {
+    'Content-type': 'application/json'
+}
 Vue.prototype.axios = axios;
 new Vue({
   router,
