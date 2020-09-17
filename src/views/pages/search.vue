@@ -146,6 +146,7 @@ export default {
     height: 100vh;
     overflow: hidden;
     background-color: white;
+    padding-top: 2.5rem;
     .header {
         width: 100%;
         height: 3rem;
@@ -163,9 +164,9 @@ export default {
             width: 90%;
             background-color: rgba(241,242,244,1);
             border-radius: 20px;
-            height: 30px;
+            height: 2.5rem;
             padding: 5px;
-            line-height: 40px;
+            line-height: 2.8rem;
             display: flex;
             align-items: center;
             justify-content: space-around;

@@ -13,7 +13,7 @@
         <section></section>
     </v-app> -->
     <v-card class="mine mx-auto">
-	    <v-img class="header" :src="picUrl" height="300px" dark>
+	    <v-img class="header" :src="picUrl" :lazy-src="lazyImg" height="350px" dark>
 		    <div>
 		        <v-card-title class="header-btn">
 		          	<v-btn dark icon>
@@ -54,13 +54,15 @@
 </template>
 
 <script>
-	import getRandomPicture from '@/utils/getRandomPicture'
+    import getRandomPicture from '@/utils/getRandomPicture'
+    import lazyImg from '@/static/images/lazy_img.jpg'
 	export default {
 	    name: 'mine',
 	    data() {
 	        return {
 	        	picUrl: '',
-	        	pic_list: []
+                pic_list: [],
+                lazyImg: lazyImg
 	        }
 	    },
 	    methods: {
@@ -92,7 +94,8 @@
 		backgroud-color: gray;
 	}
     .header {
-    	width: 100%;
+        width: 100%;
+        padding-top: 2rem;
 		&-btn {
 			display: flex;
 			justify-content: space-between;

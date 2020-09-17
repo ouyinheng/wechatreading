@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getLoginInfo, removeLoginInfo } from '../sign.js'
+// import { getLoginInfo, removeLoginInfo } from '../sign.js'
 var fileSystemPathType = 1
 var transferProgressSet = {}
 var speedUnits = ['B/s', 'KB/s', 'MB/s', 'GB/s']
@@ -299,7 +299,7 @@ var file = {
         let fileTransfer = new FileTransfer()
         let transferId = getRandomKey()
         let uploadOptions = new FileUploadOptions()
-        let authorization = getLoginInfo()
+        // let authorization = getLoginInfo()
 
         Object.assign(uploadOptions, {
             fileKey: 'file',
@@ -308,7 +308,7 @@ var file = {
             headers: options.headers || {}
         })
 
-        uploadOptions.headers['authorization'] = authorization['token_type'] + ' ' + authorization['access_token']
+        // uploadOptions.headers['authorization'] = authorization['token_type'] + ' ' + authorization['access_token']
 
         if (typeof (options.onProgress) === 'function') {
             fileTransfer.onprogress = (progressEvent) => {

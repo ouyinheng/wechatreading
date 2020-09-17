@@ -12,5 +12,9 @@ export default [
         path: '/discoverInfo',
         name: 'discoverInfo',
         component: () => import(/* webpackChunkName: "otherPages" */ './discoverInfo.vue')
+    },  {
+        path: '/readBook',
+        name: 'readBook',
+        component: () => import(/* webpackChunkName: "otherPages" */ './readBook.vue')
     }, 
 ]

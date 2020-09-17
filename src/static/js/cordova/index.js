@@ -1,6 +1,5 @@
 import base from './base'
 import device from './device'
-import app from './app'
 import db from './db' 
 import net from './net'
 import file from './file'
@@ -119,7 +118,6 @@ var App = {
     /**
      * 应用操作
      */
-    app,
 
     // /**
     //  * 缓存操作

@@ -62,6 +62,7 @@ export default {
 
 <style lang="scss" scoped>
 .bookrack {
+    padding-top: 2rem;
     .header {
         width: 100%;
         height: 50px;
@@ -70,9 +71,9 @@ export default {
         .search_group {
             background-color: rgba(241,242,244,1);
             border-radius: 20px;
-            height: 30px;
+            height: 2.5rem;
             padding: 5px;
-            line-height: 40px;
+            line-height: 2.8rem;
             display: flex;
             align-items: center;
             justify-content: space-around;

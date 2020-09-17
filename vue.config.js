@@ -1,3 +1,6 @@
+const CopyWebpackPlugin = require("copy-webpack-plugin") //引入插件
+const path = require('path')
+
 module.exports = {
 	devServer: {
 		host: '0.0.0.0',
@@ -60,5 +63,16 @@ module.exports = {
 	},
 	"transpileDependencies": [
 		"vuetify"
-	]
+    ],
+    configureWebpack: {
+        plugins: [
+            new CopyWebpackPlugin([ //打包时执行拷贝
+                {
+                    from: path.resolve(__dirname, './src/cordovafile'),
+                    to:   path.resolve(__dirname, './dist') + '',
+                    ignore: ['.*']
+                }
+            ])
+        ]
+    }
 }

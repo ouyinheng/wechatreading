@@ -116,8 +116,14 @@
 
 	    methods: {
 	      	reserve () {
-	        	this.loading = true
-	        	setTimeout(() => (this.loading = false), 2000)
+	        	// this.loading = true
+                // setTimeout(() => (this.loading = false), 2000)
+                this.$router.push({
+                    path: '/readBook',
+                    query: {
+                        link: encodeURIComponent(this.info.link)
+                    }
+                })
 	      	},
 	      	setLeave() {
 	      		this.leave = !this.leave
