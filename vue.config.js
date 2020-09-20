@@ -18,7 +18,7 @@ module.exports = {
                     '^/api': '/'
                 }
             },
-            '/apit': {
+            '/sapit': {
 				// 目标 API 地址
 				target: 'https://m.toutiao.com',
 				// 如果要代理 websockets
@@ -26,7 +26,7 @@ module.exports = {
 				// 将主机标头的原点更改为目标URL
 				changeOrigin: true,
 				pathRewrite: {
-                    '^/apit': '/'
+                    '^/sapit': '/'
                 }
 			},
 			'/qd': {

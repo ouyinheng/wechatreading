@@ -1,11 +1,11 @@
 <template>
     <v-app class="basic_home">
         <section class="section">
-            <transition name="page-transfer" mode="out-in">
+            <!-- <transition name="page-transfer" mode="out-in"> -->
                 <keep-alive>
                     <router-view class="router_view"/>
                 </keep-alive>
-            </transition>
+            <!-- </transition> -->
         </section>
         <footer class="footer">
             <v-bottom-navigation

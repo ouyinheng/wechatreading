@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <transition name="page-transfer" mode="out-in">
-      <router-view class="router_view" />
+        <!-- <keep-alive> -->
+            <router-view class="router_view" />
+        <!-- </keep-alive> -->
     </transition>
   </v-app>
 </template>

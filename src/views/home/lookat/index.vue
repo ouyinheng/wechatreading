@@ -44,7 +44,7 @@ export default {
 
 <style lang="scss" scoped>
 .lookat {
-    padding-top: 2rem;
+    padding-top: 2.5rem;;
     .not-found {
         width: 90vw;
         margin: 10rem auto 0;

@@ -21,25 +21,25 @@
 			<v-toolbar></v-toolbar>
 		</div>
 		<div :loading="loading" class="mx-auto my-4 v-cards card_group" @click="setLeave">
-			<v-img width="100" height="150" :src="info.cover"></v-img>
-			<v-card-title>{{info.name}}</v-card-title>
+			<v-img class="book_cover" :src="info.cover"></v-img>
+			<div class="book_title">{{info.name}}</div>
+            <div class="book_author">{{info.author}}</div>
 			<v-card-text>
 				<!-- <v-row align="center" class="mx-0">
 			        <v-rating :value="4.5" color="amber" dense half-increments readonly size="14"></v-rating>
 			        <div class="grey--text ml-4">4.5 (413)</div>
 				</v-row>-->
-				<div class="my-4 subtitle-1">{{info.author}}</div>
 				<div class="book_desc">{{info.desc}}</div>
 			</v-card-text>
 			<v-divider class="mx-4"></v-divider>
-			<v-card-title>标签</v-card-title>
+			<!-- <v-card-title>标签</v-card-title>
 			<v-card-text>
 				<v-chip-group v-model="selection" active-class="deep-purple accent-4 white--text" column>
 					<v-chip v-for="(item, index) in info.author_tag" :key="index">{{item}}</v-chip>
 				</v-chip-group>
-			</v-card-text>
-			<v-card-actions>
-				<v-btn color="deep-purple lighten-2" text @click="reserve">Reserve</v-btn>
+			</v-card-text> -->
+			<v-card-actions class="btn_group">
+				<v-btn color="read_book" text @click="reserve">点击阅读</v-btn>
 			</v-card-actions>
 		</div>
 
@@ -149,7 +149,7 @@ export default {
 					name: dom.querySelector("h1").innerText,
 					channel: dom.querySelector("p").innerText,
 					tag: [],
-					author: dom.querySelector("p").innerText,
+					author: dom.querySelector("p").innerText.split('：')[1].split('分类')[0],
 					desc: content.querySelector(".intro").innerText,
 					link: dom.querySelector(".action a").getAttribute("href"),
 					author_tag: [],
@@ -188,11 +188,48 @@ export default {
 .bookinfo {
 	position: relative;
 	overflow: hidden;
+    height: 100vh;
+    padding-top: 2.5rem;
+    box-sizing: border-box;
+    .book_cover {
+        width: 9rem;
+        height: 13rem;
+        object-fit: fill;
+    }
 	.card_group {
 		background-color: white;
-		border-radius: 5px;
+		border-radius: 20px;
 		box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
 			0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        .book_title {
+            display: block !important;
+            font-weight: bold;
+            text-align: center;
+            flex-wrap: wrap;
+            font-size: 1.25rem;
+            letter-spacing: 0.0125em;
+            line-height: 2rem;
+            word-break: break-all;
+            padding-top: 1rem;
+        }
+        .book_author {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            color: #4c9de6;
+        }
+        .btn_group {
+            width: 100%;
+            position: absolute;
+            bottom: 2rem;
+            justify-content: space-around;
+        }
+        .read_book--text {
+            color: #4c9de6;
+            span {
+                color: #4c9de6 !important;
+            }
+        }
 	}
 	.top {
 		position: absolute;
@@ -200,9 +237,14 @@ export default {
 		left: 0;
 		right: 0;
 		height: 50px;
-		background-color: pink;
+        padding-top: 2.5rem;
+		background-color: white;
 		transition: all 0.3s;
 		z-index: 11;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12) !important;
+        .v-toolbar {
+            box-shadow: none !important;
+        }
 	}
 	.bottom {
 		position: absolute;
@@ -222,7 +264,7 @@ export default {
 	}
 	.v-cards {
 		width: 95vw;
-		height: 95vh;
+		height: 90vh;
 		padding: 40px 0 0 0;
 		box-sizing: border-box;
 		box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.2),
@@ -232,7 +274,6 @@ export default {
 	.book_desc {
 		line-height: 1.1875rem;
 		display: -webkit-box;
-		height: 5rem;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 4;
 		font-size: 0.875rem;

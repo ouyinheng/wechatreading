@@ -77,7 +77,7 @@ export default {
 
 <style lang="scss" scoped>
 .bookrack {
-	padding-top: 2rem;
+	padding-top: 2.5rem;
 	.header {
 		width: 100%;
 		height: 50px;

@@ -32,7 +32,6 @@
 						v-model="dialog"
 						class="test"
 						fullscreen
-						hide-overlay
 						transition="dialog-bottom-transition"
 					>
 						<template v-slot:activator="{ on, attrs }">
@@ -93,6 +92,7 @@ export default {
 			});
 		},
 		getChapterContent(info) {
+            this.leave = true;
             this.dialog = false;
 			this.nowCharpter = info;
 			jiutao.getContent(info.link).then((res) => {
@@ -126,12 +126,22 @@ export default {
 .v-dialog--fullscreen {
 	background: white !important;
 	border-radius: 30px 30px 0px 0px;
-	height: 90%;
+	// height: 90%;
 	top: 10vh;
 	bottom: 2rem;
+    overflow: hidden;
+    .v-list-item-group {
+        height: 80vh;
+        overflow: auto;
+    }
+    .v-subheader {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
 }
 .chapter_group {
 	padding: 1rem;
+    // box-sizing: border-box;
 }
 </style>
 
@@ -144,7 +154,7 @@ export default {
 	background: white;
 	box-sizing: border-box;
 	padding: 10px;
-	padding-top: 2rem;
+	padding-top: 3rem;
 	// .mb-2 {
 	//     margin-bottom: 10px;
 	// }
@@ -153,9 +163,12 @@ export default {
 		height: 100%;
 		overflow-x: hidden;
 		overflow-y: auto;
+        h3 {
+            padding: 10px 0;
+            font-size: 1.5rem;
+        }
 		.book_content {
 			box-sizing: border-box;
-
 			p {
 				padding: 5px 10px !important;
 			}
@@ -166,10 +179,16 @@ export default {
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 50px;
-		background-color: pink;
+		height: 50;
+        padding-top: 2.5rem;
+		background-color: white;
 		transition: all 0.3s;
 		z-index: 11;
+        // transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1) transform, 0.2s cubic-bezier(0.4, 0, 0.2, 1) background-color, 0.2s cubic-bezier(0.4, 0, 0.2, 1) left, 0.2s cubic-bezier(0.4, 0, 0.2, 1) right, 280ms cubic-bezier(0.4, 0, 0.2, 1) box-shadow, 0.25s cubic-bezier(0.4, 0, 0.2, 1) max-width, 0.25s cubic-bezier(0.4, 0, 0.2, 1) width, 0.2s cubic-bezier(0.4, 0, 0.2, 1) -webkit-transform, 280ms cubic-bezier(0.4, 0, 0.2, 1) -webkit-box-shadow;
+        box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+        .v-toolbar {
+            box-shadow: none !important;
+        }
 	}
 	.bottom {
 		position: absolute;

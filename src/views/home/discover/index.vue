@@ -184,7 +184,9 @@ export default {
   overflow-y: auto;
   position: relative;
   box-sizing: border-box;
-  padding: 2rem;
+  padding-top: 2.5rem;
+  padding-left: 10px;
+  padding-right: 10px;
   .swiper-slide {
     width: 100vw;
     .v-card {
