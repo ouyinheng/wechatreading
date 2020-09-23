@@ -42,7 +42,16 @@ export default {
 					title: "从本地导入",
 					route: "/local",
 				},
-			],
+            ],
+            params: {
+                id: "",
+                bookName: "",
+                link: "",
+                cover: "",
+                newCharpter: 0,
+                author: "",
+            },
+            info: {}
 		};
 	},
 	methods: {
@@ -50,15 +59,51 @@ export default {
 			this.$router.push({
 				path: "/search",
 			});
+        },
+        getBookInfo(link) {
+            this.params.id = link.split(".")[0].split("/")[2];
+			this.axios.get(`/jiutao/${link}`).then((res) => {
+				this.loading = false;
+				let div = document.createElement("div");
+				div.innerHTML = res.data;
+				let dom = div.querySelector(".layui-main .detail");
+				let content = div.querySelector(".layui-main .content");
+				this.info = {
+					cover: dom
+						.querySelector(".bookimg img")
+						.getAttribute("src"),
+					name: dom.querySelector("h1").innerText,
+					channel: dom.querySelector("p").innerText,
+					tag: [],
+					author: dom.querySelector("p").innerText.split('：')[1].split('分类')[0],
+					desc: content.querySelector(".intro").innerText,
+					link: dom.querySelector(".action a").getAttribute("href"),
+					author_tag: [],
+				};
+				this.params.bookName = this.info.name;
+				this.params.link = link;
+				this.params.cover = this.info.cover;
+                this.params.author = this.info.author;
+                this.$router.push({
+                    path: "/readBook",
+                    query: {
+                        link: encodeURIComponent(this.info.link),
+                        title: this.info.name
+                    },
+                });
+			});
 		},
 		toDetails(item) {
-			console.log(item);
-			this.$router.push({
-				path: "/bookDetails",
-				query: {
-					link: encodeURIComponent(item.link),
-				},
-			});
+            console.log(item);
+            this.getBookInfo(item.link)
+			// this.$router.push({
+			// 	path: "/bookDetails",
+			// 	query: {
+			// 		link: encodeURIComponent(item.link),
+			// 	},
+            // });
+            
+			
 		},
 		optionHandler(item) {
 			this.$router.push("/local");

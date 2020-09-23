@@ -11,7 +11,7 @@
         </header>
         <section>
             <div class="chips_group" v-if="!showList">
-                <v-chip class="chips_item ma-2" v-for="(item, index) in chips" :key="index" @click.native="chipHandler(item.value)">{{item.value}}</v-chip>
+                <span class="chips_item" v-for="(item, index) in chips" :key="index" @click="chipHandler(item.value)">{{item.value}}</span>
             </div>
             <div v-else>
                <v-card v-for="(item, index) in searchBookList" :key="index" color="#ffffff" outlined @click="toDetails(item)">
@@ -184,10 +184,19 @@ export default {
         }
     }
     .chips_group {
+        padding: 10px 10px 0;
         .chips_item {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            background-color: gainsboro;
+            border-radius: 15px;
+            font-size: smaller;
         }
     }
     section {
+        height: calc(100vh - 6rem);
+        overflow: auto;
         .book-layout {
             position: relative;
             display: block;

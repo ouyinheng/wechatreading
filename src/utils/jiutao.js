@@ -3,7 +3,6 @@ export default {
 	getCharpter(link) {
 		return new Promise((resolve, reject) => {
 			axios.get(`/jiutao/${link}`).then((res) => {
-                console.log(res);
                 let div = document.createElement('div');
                 div.innerHTML = res.data;
                 let list =  div.querySelectorAll('.read dl');
@@ -13,7 +12,6 @@ export default {
 					let item = document.createElement('div');
 					item.appendChild(div)
 					let CharpterListNode = item.querySelectorAll('dd')
-                    console.log(CharpterListNode)
                     Array.from(CharpterListNode).forEach(node => {
                         let ele = document.createElement('div');
                         ele.appendChild(node)
@@ -31,7 +29,6 @@ export default {
     getContent(link) {
         return new Promise((resolve, reject) => {
 			axios.get(`/jiutao/${link}`).then((res) => {
-                console.log(res);
                 let div = document.createElement('div');
                 div.innerHTML = res.data;
                 let content =  div.querySelector('#content').innerHTML;
@@ -43,7 +40,6 @@ export default {
 				// 	let item = document.createElement('div');
 				// 	item.appendChild(div)
 				// 	let CharpterListNode = item.querySelectorAll('dd')
-                //     console.log(CharpterListNode)
                 //     Array.from(CharpterListNode).forEach(node => {
                 //         let ele = document.createElement('div');
                 //         ele.appendChild(node)

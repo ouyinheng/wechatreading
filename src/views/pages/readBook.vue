@@ -43,7 +43,7 @@
 								<v-list-item-group v-model="select" color="primary">
 									<v-list-item v-for="(item, i) in charpterList" :key="i">
 										<v-list-item-content>
-											<v-list-item-title v-text="item.CharpterName" @click="getChapterContent(item)"></v-list-item-title>
+											<v-list-item-title v-text="item.CharpterName" @click="getChapterContent(item, i)"></v-list-item-title>
 										</v-list-item-content>
 									</v-list-item>
 								</v-list-item-group>
@@ -62,6 +62,7 @@
 
 <script>
 import jiutao from "@/utils/jiutao.js";
+import dbOption from "@/utils/db/bookrack.js";
 export default {
 	name: "readBook",
 	data() {
@@ -73,11 +74,20 @@ export default {
 			nowCharpter: {
 				CharpterName: "",
 				link: "",
-			},
+            },
+            nowCharpterIndex: 0,
 			leave: true,
 			showAdd: true,
             dialog: false,
-            title: ''
+            title: '',
+            params: {
+                id: "",
+                bookName: "",
+                link: "",
+                cover: "",
+                newCharpter: "",
+                author: "",
+            }
 		};
 	},
 	methods: {
@@ -86,15 +96,47 @@ export default {
 		},
 		getCharpterList() {
 			jiutao.getCharpter(this.link).then((res) => {
-				console.log(res);
-				this.charpterList = res;
-				this.getChapterContent(this.charpterList[0]);
+                this.charpterList = res;
+                // if(this.link.indexOf('html') != -1) {
+                //     this.params.id = this.link.split(".")[0].split("/")[2];
+                //     this.createGetContent();
+                // } else {
+                //     this.getChapterContent(this.charpterList[0], 0)
+                // }
+                this.params.id = this.link.split("/")[2];
+                this.createGetContent();
 			});
-		},
-		getChapterContent(info) {
+        },
+        async createGetContent() {
             this.leave = true;
             this.dialog = false;
-			this.nowCharpter = info;
+            let index = 0;
+            await dbOption.queryBookInfo(this.params.id, async (res) => {
+                console.log('res', res)
+                index = res.length > 0 ? res[0].newCharpter : 0;
+                this.nowCharpter = this.charpterList[index];
+                this.nowCharpterIndex = index;
+                jiutao.getContent(this.charpterList[index].link).then((res) => {
+                    this.content = res;
+                });
+            })
+			// jiutao.getContent(info.link).then((res) => {
+			// 	this.content = res;
+			// });
+        },
+		async getChapterContent(info, index) {
+            this.leave = true;
+            this.dialog = false;
+            this.nowCharpter = info;
+            this.nowCharpterIndex = index || 0;
+            await dbOption.queryBookInfo(this.params.id, async (res) => {
+                if(res.length > 0) {
+                    this.params = await res[0]
+                    this.params.newCharpter = index;
+                    await dbOption.updateBookInfo(this.params.id, index, (res) => {
+                    })
+                }
+            })
 			jiutao.getContent(info.link).then((res) => {
 				this.content = res;
 			});
@@ -104,8 +146,8 @@ export default {
 		},
 		addBookrack() {
 			if (this.showAdd) {
-				this.showAdd = false;
-				dbOption.insertBook(this.params);
+                this.showAdd = false;
+				dbOption.insertBook({});
 			} else {
 				this.dialog = true;
 			}
@@ -113,8 +155,9 @@ export default {
 	},
 	created() {
 		this.link = decodeURIComponent(this.$route.query.link);
-		this.title = this.$route.query.title;
-		this.getCharpterList();
+        this.title = this.$route.query.title;
+        console.log(this.link)
+        this.getCharpterList()
 	},
 };
 </script>
@@ -153,7 +196,7 @@ export default {
 	overflow: hidden;
 	background: white;
 	box-sizing: border-box;
-	padding: 10px;
+	padding: 0 10px;
 	padding-top: 3rem;
 	// .mb-2 {
 	//     margin-bottom: 10px;

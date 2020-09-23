@@ -102,13 +102,14 @@ export default {
 			bookName: "",
 			link: "",
 			cover: "",
-			newCharpter: "",
+			newCharpter: 0,
 			author: "",
 		},
 	}),
 
 	methods: {
 		reserve() {
+            console.log(this.info)
 			// this.loading = true
 			// setTimeout(() => (this.loading = false), 2000)
 			this.$router.push({
@@ -127,17 +128,21 @@ export default {
 		},
 		addBookrack() {
 			if (this.showAdd) {
-				this.showAdd = false;
+                this.showAdd = false;
 				dbOption.insertBook(this.params);
 			} else {
 				this.dialog = true;
 			}
 		},
 		getBookInfo(link) {
-			this.params.id = link.split(".")[0].split("/")[2];
+            this.params.id = link.split(".")[0].split("/")[2];
+            dbOption.queryBookInfo(this.params.id, res => {
+                if(res.length > 0) {
+                    this.showAdd = false;
+                }
+            });
 			this.axios.get(`/jiutao/${link}`).then((res) => {
 				this.loading = false;
-				console.log(res);
 				let div = document.createElement("div");
 				div.innerHTML = res.data;
 				let dom = div.querySelector(".layui-main .detail");
@@ -159,13 +164,12 @@ export default {
 				this.params.cover = this.info.cover;
 				// this.params.newCharpter = this.info.newCharpter;
 				this.params.author = this.info.author;
-				console.log(this.params);
 			});
 		},
 	},
 	created() {
 		let link = decodeURIComponent(this.$route.query.link);
-		this.getBookInfo(link);
+        this.getBookInfo(link);
 		// origin.getOriginSearch(info.link).then(res => {
 		// 	this.loading = false;
 		// 	let qd_info = res
