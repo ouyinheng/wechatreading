@@ -8,7 +8,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				axios.get(`/qd`).then(res => {
 					let div = document.createElement('div');
-					div.innerHTML = res.data;
+					div.innerHTML = res;
 					let list =  div.querySelectorAll('.index-two-wrap .book-list ul li');
 					let weekspush = []
 					Array.from(list).forEach(div => {
@@ -59,7 +59,7 @@ export default {
 				let link = url.split('//book.qidian.com')[1]
 				axios.get(`/bookqd${link}`).then(res => {
 					let div = document.createElement('div');
-					div.innerHTML = res.data;
+					div.innerHTML = res;
 					let list = div.querySelector('.book-detail-wrap');
 					let tag = div.querySelector('.book-content-wrap .book-state li');
 					let info = {
@@ -83,7 +83,7 @@ export default {
             return new Promise((resolve, reject) => {
 				axios.get(`/qd`).then(res => {
 					let div = document.createElement('div');
-					div.innerHTML = res.data;
+					div.innerHTML = res;
 					let list =  div.querySelector('#s-box');
                     const placeholder = list.getAttribute('placeholder');
                     placeholder ? resolve(placeholder) : reject('请输入书名或作者名')

@@ -144,7 +144,7 @@ export default {
 			this.axios.get(`/jiutao/${link}`).then((res) => {
 				this.loading = false;
 				let div = document.createElement("div");
-				div.innerHTML = res.data;
+				div.innerHTML = res;
 				let dom = div.querySelector(".layui-main .detail");
 				let content = div.querySelector(".layui-main .content");
 				this.info = {

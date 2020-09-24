@@ -1,19 +1,20 @@
 <template>
 	<div class="discover">
 		<v-row dense>
-			<v-col v-for="(item, index) in recomList" :key="index" cols="12">
+			<v-col v-for="(item, index) in getRecomList" :key="index" cols="12">
 				<div class="app_card card_group" v-if="item.title" @click="toInfo(item)">
-                    <v-card-title class="headline title" v-text="item.title"></v-card-title>
+					<v-card-title class="headline title" v-text="item.title"></v-card-title>
 					<div class="d-flex flex-no-wrap justify-space-between">
-                        <img class="img" :src="item.large_image_url" alt="img">
-                        <div>
-                            <div class="v-card-subtitle" v-html="item.emphasized ? item.emphasized.summary : ''"></div>
-                        </div>
-                    </div>
+						<img class="img" :src="item.large_image_url" alt="img" />
+						<div>
+							<div class="v-card-subtitle" v-html="item.emphasized ? item.emphasized.summary : ''"></div>
+						</div>
+					</div>
 				</div>
-                <div class="bottom_gray" v-if="item.title"></div>
+				<div class="bottom_gray" v-if="item.title"></div>
 			</v-col>
 		</v-row>
+		<loading v-if="loading"></loading>
 	</div>
 </template>
 
@@ -22,33 +23,29 @@ import bookApi from "@/utils/book.js";
 import disCoverApi from "@/utils/getDiscover.js";
 import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
-
+import { mapActions, mapGetters } from "vuex";
+import loading from "@/components/loading.vue";
 export default {
 	name: "discover",
 	data() {
 		return {
-			swiperOption: {
-				// some swiper options/callbacks
-				// 所有的参数同 swiper 官方 api 参数
-				// ...
-			},
 			recommend: [],
 			height: "300px",
 			loading: false,
 			selection: 1,
-			recomList: [],
+			loading: false,
 		};
 	},
 	computed: {
-		// swiper() {
-		//   return this.$refs.mySwiper.swiper;
-		// },
+		...mapGetters(["getRecomList"]),
 	},
 	components: {
 		swiper,
 		swiperSlide,
+		loading,
 	},
 	methods: {
+		...mapActions(["getRecommList"]),
 		reserve() {
 			this.loading = true;
 			setTimeout(() => (this.loading = false), 2000);
@@ -69,7 +66,7 @@ export default {
 		getHomePage() {
 			this.axios.get(`/qd`).then((res) => {
 				let div = document.createElement("div");
-				div.innerHTML = res.data;
+				div.innerHTML = res;
 				let list = div.querySelectorAll(
 					".index-two-wrap .book-list ul li"
 				);
@@ -140,18 +137,15 @@ export default {
 		},
 	},
 	created() {
-		// this.axios.get('/api/search.php?q=诡秘之主').then(res => {
-		//     console.log(parseSearch.parseHtml(res.data))
-		// })
-		// this.getHomePage()
-		disCoverApi.getRecommend().then((res) => {
-			console.log(res);
-			this.recomList = res.data.data;
-		});
+		if (this.getRecomList.length === 0) {
+			this.loading = true;
+			this.getRecommList().then((res) => {
+				this.loading = false;
+				console.log("s", this.getRecomList);
+			});
+		}
 	},
-	mounted() {
-		// this.swiper.slideTo(0, 1000, false);
-	},
+	mounted() {},
 };
 </script>
 
@@ -160,7 +154,7 @@ export default {
 	width: 100%;
 	height: 100%;
 	position: relative;
-    background-color: white;
+	background-color: white;
 	overflow-x: hidden;
 	overflow-y: auto;
 	position: relative;
@@ -170,9 +164,9 @@ export default {
 	// padding-right: 10px;
 	.app_card {
 		width: 100%;
-        background-color: white;
+		background-color: white;
 	}
-	
+
 	.v-card__title {
 		font-size: 1.1rem !important;
 		line-height: 1.3rem !important;
@@ -182,11 +176,11 @@ export default {
 	.v-card__title {
 		padding: 0 !important;
 	}
-    .bottom_gray {
-        width: 100%;
-        height: 5px;
-        background-color: gainsboro;
-    }
+	.bottom_gray {
+		width: 100%;
+		height: 5px;
+		background-color: gainsboro;
+	}
 	.card_group {
 		padding: 10px;
 		box-shadow: none;
@@ -197,14 +191,14 @@ export default {
 			min-height: 5.5rem;
 			margin: 0 10px 0 0;
 			object-fit: cover;
-            border-radius: 5px;
+			border-radius: 5px;
 		}
 		.title {
 			margin-bottom: 10px;
 		}
-        .v-card-subtitle {
-            font-size: 0.9rem;
-        }
+		.v-card-subtitle {
+			font-size: 0.9rem;
+		}
 	}
 }
 </style>

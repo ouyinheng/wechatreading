@@ -50,7 +50,7 @@ export default {
 				)
 				.then((res) => {
 					console.log(res);
-					this.info = res.data.data;
+					this.info = res.data;
 				});
 		},
 		back() {

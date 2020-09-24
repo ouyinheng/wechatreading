@@ -30,14 +30,14 @@
 		        </v-card-title>
 		    </div>
 	    </v-img>
-	    <v-list two-line>
+	    <v-list dense>
 	      	<v-list-item @click="">
 	        	<v-list-item-icon>
 	          		<v-icon color="indigo">iconfont icon-shoucang</v-icon>
 	        	</v-list-item-icon>
 	        	<v-list-item-content>
 	          		<v-list-item-title>历史记录</v-list-item-title>
-	          		<v-list-item-subtitle>history</v-list-item-subtitle>
+	          		<!-- <v-list-item-subtitle>history</v-list-item-subtitle> -->
 	        	</v-list-item-content>
 			</v-list-item>
 			<v-list-item @click="toPictureHandler">
@@ -46,7 +46,7 @@
 	        	</v-list-item-icon>
 	        	<v-list-item-content>
 	          		<v-list-item-title>图片</v-list-item-title>
-	          		<v-list-item-subtitle>picture</v-list-item-subtitle>
+	          		<!-- <v-list-item-subtitle>picture</v-list-item-subtitle> -->
 	        	</v-list-item-content>
 			</v-list-item>
 		</v-list>
@@ -56,6 +56,7 @@
 <script>
     import getRandomPicture from '@/utils/getRandomPicture'
     import lazyImg from '@/static/images/lazy_img.jpg'
+    import { mapGetters, mapActions } from 'vuex'
 	export default {
 	    name: 'mine',
 	    data() {
@@ -64,11 +65,15 @@
                 pic_list: [],
                 lazyImg: lazyImg
 	        }
-	    },
+        },
+        computed: {
+            ...mapGetters(['getPicList'])
+        },
 	    methods: {
+            ...mapActions(['getPictureList']),
 	    	randomList() {
-				let index = parseInt(Math.random()*(this.pic_list.length-1));
-		    	this.picUrl = this.pic_list[index]
+				let index = parseInt(Math.random()*(this.getPicList.length-1));
+		    	this.picUrl = this.getPicList[index]
 	    	},
 	    	toPictureHandler() {
 	    		this.$router.push({
@@ -77,13 +82,17 @@
 	    	}
 	    },
 	    created() {
-	    	getRandomPicture.getPicture('/huaban/favorite/beauty').then(res => {
-	    		this.pic_list = res;
-		    	this.randomList();
-		    	// setInterval(() => {
-		    	// 	this.randomList()
-		    	// }, 10000)
-	    	})
+	    	// getRandomPicture.getPicture('/huaban/favorite/beauty').then(res => {
+	    	// 	this.pic_list = res;
+		    // 	this.randomList();
+            // })
+            if(this.getPicList.length === 0) {
+                this.getPictureList().then(() => {
+                    this.randomList();
+                })
+            } else {
+                this.randomList();
+            }
 	    }
 	}
 </script>

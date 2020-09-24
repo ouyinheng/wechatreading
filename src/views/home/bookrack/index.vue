@@ -65,13 +65,11 @@ export default {
 			this.axios.get(`/jiutao/${link}`).then((res) => {
 				this.loading = false;
 				let div = document.createElement("div");
-				div.innerHTML = res.data;
-				let dom = div.querySelector(".layui-main .detail");
+				div.innerHTML = res;
+                let dom = div.querySelector(".layui-main .detail");
 				let content = div.querySelector(".layui-main .content");
 				this.info = {
-					cover: dom
-						.querySelector(".bookimg img")
-						.getAttribute("src"),
+					cover: dom.querySelector(".bookimg img").getAttribute("src"),
 					name: dom.querySelector("h1").innerText,
 					channel: dom.querySelector("p").innerText,
 					tag: [],
@@ -114,7 +112,7 @@ export default {
 			this.bookList = res;
 		});
 		// this.axios.get(`/api/search.php?q=123`).then(res => {
-		//     console.log(parseSearch.parseHtml(res.data))
+		//     console.log(parseSearch.parseHtml(res))
 		// })
 	},
 };

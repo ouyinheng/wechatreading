@@ -11,8 +11,13 @@
 	      	</v-btn>
 	    </v-toolbar>
 	    <v-container fluid class="picture-container" v-if="!error">
-			<md-scroll-view ref="scrollView" :scrolling-x="false" @end-reached="$_onEndReached">
-				<v-row dense>
+            <van-list
+                v-model="loading"
+                :finished="isFinished"
+                finished-text="没有更多了"
+                @load="loadmore"
+            >
+				<v-row>
 					<v-col v-for="(item, index) in pic_list" :key="index" :cols="item.col" @click="showPic(item)">
 						<v-card>
 							<v-img
@@ -38,25 +43,15 @@
 						</v-card>
 					</v-col>
 				</v-row>
-				<md-scroll-view-more slot="more" :is-finished="isFinished"></md-scroll-view-more>
-			</md-scroll-view>
+			</van-list>
 	    </v-container>
-		<md-image-viewer
-			v-model="isViewerShow"
-			:list="previewList"
-			:has-dots="true"
-			:initial-index="viewerIndex">
-		</md-image-viewer>
-		<!-- <md-result-page
-			v-if="error"
-			type="network"
-			subtext="点击屏幕，重新加载">
-		</md-result-page> -->
+		
 	 </v-card>
 </template>
 
 <script>
-	import getRandomPicture from '@/utils/getRandomPicture'
+    import getRandomPicture from '@/utils/getRandomPicture'
+    import { ImagePreview } from 'vant';
 	export default {
 	    name: 'mine',
 	    data: () => ({
@@ -65,17 +60,18 @@
 			cards: [],
 			previewList: [],
 			viewerIndex: 0,
-			isViewerShow: false,
 			isFinished: false,
 			limit: 20,
 			wfl: 1,
-			error: false
+            error: false,
+            loading: false
 	    }),
 	    methods: {
 	    	back() {
 	    		this.$router.back()
 	    	},
 	    	load() {
+                this.loading = true;
 		    	getRandomPicture.getPictureList('/huaban/favorite/beauty').then(res => {
                     console.log(res)
 		    		res.forEach(item => {
@@ -86,6 +82,7 @@
 		    			}
                     })
 		    		this.pic_list = res;
+                    this.loading = false;
 		    	}).catch(err => {
 					this.error = true;
 				})
@@ -94,6 +91,7 @@
 	            if(this.pic_list.length == 0) {
 	                return;
 				}
+                this.loading = true;
 	            const url = `/huaban/favorite/beauty?k84h06q1&max=${this.pic_list[this.pic_list.length-1]['pin_id']}&limit=${this.limit}&wfl=${this.wfl}`;
 	            getRandomPicture.getPictureList(url).then(res => {
 					res.forEach(item => {
@@ -103,27 +101,19 @@
 		    				item.col = 6;
 		    			}
 		    		})
+                    this.loading = false;
 		    		this.pic_list.push(...res);
 		    	}).catch(err => {
+                    this.loading = false;
 					this.error = true;
 				})	
 			},
 			showPic(row) {
 				getRandomPicture.getPictureDetails(row.pin_id).then(res => {
 					this.previewList = res.pin.board.pins ? res.pin.board.pins.map(item => 'http://hbimg.huabanimg.com/'+item.file.key) : []
-					this.isViewerShow = true
-				})
-			},
-			$_onEndReached() {
-				if (this.isFinished) {
-					return
-				}
-				// async data
-				setTimeout(() => {
-					this.loadmore()
-					this.$refs.scrollView.finishLoadMore()
-				}, 1000)
-			},
+                    ImagePreview(this.previewList);
+                })
+			}
 	    },
 	    created() {
 	    	this.load()

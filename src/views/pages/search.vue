@@ -76,7 +76,7 @@ export default {
             }).then(res => {
                 console.log(res)
                 let div = document.createElement('div');
-				div.innerHTML = res.data;
+				div.innerHTML = res;
                 let list =  div.querySelectorAll('.layui-main .library li');
                 console.log(list)
                 let bookList = [];
@@ -107,7 +107,7 @@ export default {
             // }).then(res => {
             //     console.log(res)
             //     let div = document.createElement('div');
-			// 	div.innerHTML = res.data;
+			// 	div.innerHTML = res;
             //     let list =  div.querySelectorAll('.layui-main .libraryul li');
             //     console.log(list)
             // })
@@ -118,7 +118,7 @@ export default {
         },
         getHotSearch() {
             this.axios.get(`/qd/ajax/Search/AutoComplete?_csrfToken=gGdpUIAGDW4UccHTmAlMpzwfpTjjgGuQQblR3vj9&siteid=1&query=`).then(res => {
-                this.chips = res.data.suggestions
+                this.chips = res.suggestions
             })
         },
         toDetails(item) {

@@ -7,7 +7,7 @@ export default {
 		return new Promise((resolve, reject) => {
 			axios.get(url).then(res => {
 				let srcList = [];
-				let html = res.data;
+				let html = res;
 				let filestr = html.split('app.page["pins"] = ')[1];
                 filestr = filestr.split('];')[0];
                 console.log(filestr)
@@ -23,7 +23,7 @@ export default {
 		return new Promise((resolve, reject) => {
 			axios.get(url).then(res => {
 				let srcList = [];
-				let html = res.data;
+				let html = res;
 				let filestr = html.split('app.page["pins"] = ')[1];
 	            filestr = filestr.split('];')[0];
 	            let imgList = JSON.parse(filestr + ']')
@@ -36,7 +36,7 @@ export default {
 	getPictureDetails(id) {
 		return new Promise((resolve, reject) => {
 			axios.get(`/huaban/pins/${id}/?k84h06p8`).then(res => {
-				let banner = res.data.split('app["page"] = ')[1].split('app["timestamp"]')[0]
+				let banner = res.split('app["page"] = ')[1].split('app["timestamp"]')[0]
 				banner = banner.substr(0, banner.length-2)
 				banner = JSON.parse(banner);
 	            resolve(banner)

@@ -4,7 +4,7 @@ export default {
 		return new Promise((resolve, reject) => {
 			axios.get(`/jiutao/${link}`).then((res) => {
                 let div = document.createElement('div');
-                div.innerHTML = res.data;
+                div.innerHTML = res;
                 let list =  div.querySelectorAll('.read dl');
                 let Charpter = [];
 				Array.from(list).forEach((div, index) => {
@@ -30,7 +30,7 @@ export default {
         return new Promise((resolve, reject) => {
 			axios.get(`/jiutao/${link}`).then((res) => {
                 let div = document.createElement('div');
-                div.innerHTML = res.data;
+                div.innerHTML = res;
                 let content =  div.querySelector('#content').innerHTML;
 				resolve(content)
 

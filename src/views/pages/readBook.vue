@@ -57,12 +57,14 @@
 				</div>
 			</v-toolbar>
 		</div>
+		<loading v-if="loading"></loading>
 	</div>
 </template>
 
 <script>
 import jiutao from "@/utils/jiutao.js";
 import dbOption from "@/utils/db/bookrack.js";
+import loading from "@/components/loading.vue";
 export default {
 	name: "readBook",
 	data() {
@@ -87,9 +89,13 @@ export default {
                 cover: "",
                 newCharpter: "",
                 author: "",
-            }
+            },
+            loading: false
 		};
-	},
+    },
+    components: {
+        loading
+    },
 	methods: {
 		setLeave() {
 			this.leave = !this.leave;
@@ -117,6 +123,7 @@ export default {
                 this.nowCharpter = this.charpterList[index];
                 this.nowCharpterIndex = index;
                 jiutao.getContent(this.charpterList[index].link).then((res) => {
+                    this.loading = false;
                     this.content = res;
                 });
             })
@@ -154,6 +161,7 @@ export default {
 		},
 	},
 	created() {
+        this.loading = true;
 		this.link = decodeURIComponent(this.$route.query.link);
         this.title = this.$route.query.title;
         console.log(this.link)
