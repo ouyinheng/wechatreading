@@ -1,8 +1,8 @@
 import * as Svc from "./service.js";
 
-export const getRecommList = ({ commit }) => {
-	return Svc.getRecommend().then((res) => {
-		commit("setRecommList", res.data);
+export const reqDiscoverList = ({ commit }) => {
+	return Svc.getDiscover().then((res) => {
+		commit("setDiscoverList", res);
 		return res;
 	});
 };
