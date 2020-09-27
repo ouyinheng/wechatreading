@@ -89,5 +89,13 @@ export default {
                     placeholder ? resolve(placeholder) : reject('请输入书名或作者名')
                 })
             })
+        },
+        getBookInfo(link) {
+            return new Promise((resolve, reject) => {
+                axios.get(`/bookqd/${link}`).then(res => {
+                    let div = document.createElement('div');
+					div.innerHTML = res;
+                })
+            })
         }
 }

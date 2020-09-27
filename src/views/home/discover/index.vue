@@ -21,14 +21,14 @@
 					<!-- <v-btn text>Share</v-btn>
 					<v-btn color="purple" text> Explore </v-btn> -->
 					<v-spacer></v-spacer>
-					<v-btn icon @click="show = !show">
+					<v-btn icon @click="setSelectInfo(item, index)">
 						<v-icon>{{
-							show ? "iconfont icon-top" : "iconfont icon-bottom"
+							item.show ? "iconfont icon-top" : "iconfont icon-bottom"
 						}}</v-icon>
 					</v-btn>
 				</v-card-actions>
 				<v-expand-transition>
-					<div v-show="show">
+					<div v-show="item.show">
 						<v-divider></v-divider>
 						<v-card-text>
 							I'm a thing. But, like most politicians, he promised
@@ -78,7 +78,12 @@ export default {
 		reserve() {
 			this.loading = true;
 			setTimeout(() => (this.loading = false), 2000);
-		},
+        },
+        setSelectInfo(item, index) {
+            console.log(item)
+            this.$set(item, 'show', item.show ? false : true)
+
+        },
 		callback() {},
 		/**
 		 *	本周强推 weekspush
