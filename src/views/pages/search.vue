@@ -16,7 +16,10 @@
             <div v-else>
                <v-card v-for="(item, index) in searchBookList" :key="index" color="#ffffff" outlined @click="toDetails(item)">
                     <div class="d-flex flex-no-wrap book-layout">
-                        <img class="bookImg" :src="item.bookImg.url" alt="">
+                        <div class="cover_group">
+                            <img class="bookImg" :src="item.bookImg.url" alt="">
+                            <span class="wr_bookCover_decor wr_bookCover_gradientDecor wr_bookCover_borderDecor"></span>
+                        </div>
                         <div class="book_cell">
                             <h4 class="book_title">
                                 {{item.bookname}}
@@ -74,7 +77,7 @@ export default {
                 },
                 url: '/jiutao/search.html'
             }).then(res => {
-                console.log(res)
+                // console.log(res)
                 let div = document.createElement('div');
 				div.innerHTML = res;
                 let list =  div.querySelectorAll('.layui-main .library li');
@@ -201,18 +204,34 @@ export default {
             position: relative;
             display: block;
             overflow: hidden;
-            padding: 1rem;
+            padding: 10px 1rem;
             -webkit-transition: padding-left .15s;
             transition: padding-left .15s;
         }
-        .bookImg {
-            width: 4.125rem;
-            min-width: 4.125rem;
-            height: 5.5rem;
-            object-fit: fill;
-            font-size: 0;
-            margin-right: .5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,.3);
+        .cover_group {
+            position: relative;
+            .bookImg {
+                width: 4.125rem;
+                min-width: 4.125rem;
+                height: 5.5rem;
+                object-fit: fill;
+                font-size: 0;
+                margin-right: .5rem;
+                box-shadow: 0 1px 3px rgba(0,0,0,.3);
+                background-color: #d8d8d8;
+            }
+            .wr_bookCover_decor {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            .wr_bookCover_gradientDecor {
+                background-image: -webkit-gradient(linear,left top,right top,from(hsla(0,0%,63.1%,.25)),color-stop(1%,rgba(21,21,20,.1)),color-stop(4%,hsla(0,0%,100%,.15)),color-stop(8%,hsla(0,0%,58%,.1)),color-stop(57%,hsla(0,0%,89%,0)),color-stop(91%,rgba(223,218,218,.03)),color-stop(98%,rgba(223,218,218,.05)),to(hsla(0,0%,100%,.1)));
+                background-image: linear-gradient(90deg,hsla(0,0%,63.1%,.25),rgba(21,21,20,.1) 1%,hsla(0,0%,100%,.15) 4%,hsla(0,0%,58%,.1) 8%,hsla(0,0%,89%,0) 57%,rgba(223,218,218,.03) 91%,rgba(223,218,218,.05) 98%,hsla(0,0%,100%,.1));
+                box-shadow: inset 0 0 0 0 rgba(0,0,0,.1);
+            }
         }
         .book_cell {
             overflow: hidden;
@@ -221,6 +240,8 @@ export default {
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                font-family: PingFang SC,-apple-system,SF UI Text,Lucida Grande,STheiti,Microsoft YaHei,sans-serif;
+                font-weight: 700;
                 // mark {
                 //     color: #ed424b;
                 //     background-color: transparent;

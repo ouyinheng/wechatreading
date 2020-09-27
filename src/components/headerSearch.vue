@@ -49,12 +49,15 @@ export default {
 
 <style lang="scss" scoped>
 .header {
+    position: relative;
 	width: 100%;
 	// height: 60px;
     height: calc(2.5rem + 50px + 10px);
 	box-sizing: border-box;
 	padding: 2.5rem 20px 10px;
     background-color: white;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+    z-index: 1000;
 	.search_group {
 		background-color: rgba(241, 242, 244, 1);
 		border-radius: 20px;

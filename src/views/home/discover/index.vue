@@ -2,20 +2,28 @@
 	<div class="discover">
 		<header-search></header-search>
 		<section class="main_body">
-			<v-card class="mx-auto" max-width="344" v-for="(item, index) in reqDiscoverList" :key="index">
-				<v-img
-					src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-					height="200px"
-				></v-img>
-				<v-card-title> Top western road trips </v-card-title>
-				<v-card-subtitle> 1,000 miles of wonder </v-card-subtitle>
+			<v-card
+				class="mx-auto"
+				style="margin: 10px 0"
+				max-width="344"
+				v-for="(item, index) in getDiscoverList"
+				:key="index"
+			>
+				<div class="book_cover">
+					<div class="wr_bookCover">
+                        <v-img class="v_img" :src="item.cover" height="200px"></v-img>
+                        <span class="wr_bookCover_decor wr_bookCover_gradientDecor wr_bookCover_borderDecor"></span>
+                    </div>
+				</div>
+				<v-card-title> {{ item.title }} </v-card-title>
+				<v-card-subtitle> {{ item.desc }} </v-card-subtitle>
 				<v-card-actions>
-					<v-btn text>Share</v-btn>
-					<v-btn color="purple" text> Explore </v-btn>
+					<!-- <v-btn text>Share</v-btn>
+					<v-btn color="purple" text> Explore </v-btn> -->
 					<v-spacer></v-spacer>
 					<v-btn icon @click="show = !show">
 						<v-icon>{{
-							show ? "mdi-chevron-up" : "mdi-chevron-down"
+							show ? "iconfont icon-top" : "iconfont icon-bottom"
 						}}</v-icon>
 					</v-btn>
 				</v-card-actions>
@@ -52,8 +60,8 @@ export default {
 			height: "300px",
 			loading: false,
 			selection: 1,
-            loading: false,
-            show: false,
+			loading: false,
+			show: false,
 		};
 	},
 	computed: {
@@ -140,7 +148,11 @@ export default {
 		},
 	},
 	created() {
-		this.reqDiscoverList()
+		if (this.getDiscoverList.length === 0) {
+			this.reqDiscoverList().then(() => {
+				console.log("asdf", this.getDiscoverList);
+			});
+		}
 	},
 	mounted() {},
 };
@@ -152,10 +164,46 @@ export default {
 	height: 100%;
 	position: relative;
 	overflow-x: hidden;
-	overflow-y: auto;
+	overflow-y: hidden;
 	position: relative;
 	.main_body {
-		height: calc(100vh - 2.5rem + 50px + 10px -56px);
+		height: calc(100vh - 2.5rem + 50px + 10px - 56px);
+		box-sizing: border-box;
+		padding-bottom: 150px;
+		overflow-x: hidden;
+		overflow-y: auto;
+		.v-card {
+			border-radius: 10px;
+		}
+		.book_cover {
+			padding: 1rem 0;
+			margin: 1.5rem 0;
+			box-sizing: border-box;
+            .wr_bookCover {
+                display: block;
+                width: 7rem;
+                height: 10rem;
+                box-shadow: 0 2px 16px rgba(0,0,0,.08);
+                background: #d8d8d8;
+                position: relative;
+				margin: 1rem auto;
+                .v_img {
+                    width: 7rem;
+                    height: 10rem;
+                    max-height: 10rem;
+                }
+                .wr_bookCover_decor.wr_bookCover_gradientDecor {
+                    background-image: linear-gradient(90deg,hsla(0,0%,63.1%,.25),rgba(21,21,20,.1) 1%,hsla(0,0%,100%,.15) 4%,hsla(0,0%,58%,.1) 8%,hsla(0,0%,89%,0) 57%,rgba(223,218,218,.03) 91%,rgba(223,218,218,.05) 98%,hsla(0,0%,100%,.1));
+                }
+            }
+            .wr_bookCover_decor {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+		}
 	}
 }
 </style>

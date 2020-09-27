@@ -49,6 +49,15 @@
 	          		<!-- <v-list-item-subtitle>picture</v-list-item-subtitle> -->
 	        	</v-list-item-content>
 			</v-list-item>
+            <v-list-item @click="toShowCompoent">
+	        	<v-list-item-icon>
+	          		<v-icon color="indigo">iconfont icon-tupian</v-icon>
+	        	</v-list-item-icon>
+	        	<v-list-item-content>
+	          		<v-list-item-title>组件</v-list-item-title>
+	          		<!-- <v-list-item-subtitle>picture</v-list-item-subtitle> -->
+	        	</v-list-item-content>
+			</v-list-item>
 		</v-list>
 	  </v-card>
 </template>
@@ -79,7 +88,12 @@
 	    		this.$router.push({
 	    			name: 'picture'
 	    		})
-	    	}
+            },
+            toShowCompoent() {
+                this.$router.push({
+                    name: 'showComponent'
+                })
+            }
 	    },
 	    created() {
 	    	// getRandomPicture.getPicture('/huaban/favorite/beauty').then(res => {
