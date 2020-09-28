@@ -2,19 +2,19 @@
 	<div class="readerBookInfo">
 		<div class="readerBookInfo_head">
 			<div class="wr_bookCover bookInfo_cover">
-				<img :src="cover" alt="书籍封面" class="wr_bookCover_img" />
+				<img :src="info.cover" alt="书籍封面" class="wr_bookCover_img" />
 				<div class="wr_bookCover_border"></div>
 				<span
 					class="wr_bookCover_decor wr_bookCover_gradientDecor wr_bookCover_borderDecor"
 				></span>
 			</div>
 			<div class="bookInfo_right">
-				<h2 class="bookInfo_title">{{ title }}</h2>
+				<h2 class="bookInfo_title">{{ info.title }}</h2>
 				<div class="bookInfo_author_container">
-					<a class="bookInfo_author link">{{ author }}</a>
+					<a class="bookInfo_author link">{{ info.author }}</a>
 				</div>
 				<div class="bookInfo_intro hasMore">
-					{{ intro }}
+					{{ info.intro }}
 				</div>
 				<div
 					class="bookInfo_more bookInfo_more_3children"
@@ -23,17 +23,17 @@
 					<div class="bookInfo_more_rating">
 						<div class="bookInfo_more_line1">
 							<span class="bookInfo_more_line1_number">
-                                {{ rate }}</span>
+                                {{ info.rate }}</span>
                             <span class="wr_rankBar wr_rankBar_Default wr_rankBar_8 bookInfo_score_rankBar"></span>
 						</div>
 						<div class="bookInfo_more_line2">
-							{{ discuss }}人点评
+							{{ info.discuss }}人点评
 						</div>
 					</div>
 					<div class="bookInfo_more_reading">
 						<div class="bookInfo_more_line1">
 							<span class="bookInfo_more_line1_number">
-                                {{ readNumber }}</span>万人
+                                {{ info.readNumber }}</span>万人
 						</div>
 						<div class="bookInfo_more_line2">阅读此书</div>
 					</div>
@@ -47,43 +47,58 @@
 export default {
 	name: "readerBookInfo",
 	props: {
-		cover: {
-			// 封面
-			type: String,
-			default: "",
-		},
-		title: {
-			type: String,
-			default: "",
-		},
-		author: {
-			type: String,
-			default: "",
-		},
-		intro: {
-			// 介绍
-			type: String,
-			default: "",
-		},
-		rate: {
-			// 评分
-			type: Number,
-			default: 0,
-		},
-		discuss: {
-			// 评论人数
-			type: Number,
-			default: 0,
-		},
-		showMore: {
+        info: {
+            type: Object,
+            default() {
+                return {
+                    cover: '',
+                    title: '',
+                    author: '',
+                    intro: '',
+                    rate: 0,
+                    discuss: 0,
+                    readNumber: 0,
+                }
+            }
+        },
+        showMore: {
 			type: Boolean,
-			default: false,
+			default: true,
 		},
-		readNumber: {
-			// 阅读人数
-			type: Number,
-			default: 0,
-		},
+		// cover: {
+		// 	// 封面
+		// 	type: String,
+		// 	default: "",
+		// },
+		// title: {
+		// 	type: String,
+		// 	default: "",
+		// },
+		// author: {
+		// 	type: String,
+		// 	default: "",
+		// },
+		// intro: {
+		// 	// 介绍
+		// 	type: String,
+		// 	default: "",
+		// },
+		// rate: {
+		// 	// 评分
+		// 	type: Number,
+		// 	default: 0,
+		// },
+		// discuss: {
+		// 	// 评论人数
+		// 	type: Number,
+		// 	default: 0,
+		// },
+		
+		// readNumber: {
+		// 	// 阅读人数
+		// 	type: Number,
+		// 	default: 0,
+		// },
 	},
 	data: () => ({}),
 	methods: {},

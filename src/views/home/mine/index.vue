@@ -20,7 +20,7 @@
 		            	<v-icon>iconfont icon-youxiang</v-icon>
 		          	</v-btn>
 		          	<v-spacer></v-spacer>
-		          	<v-btn dark icon>
+		          	<v-btn dark icon @click="toSetup">
 		            	<v-icon>iconfont icon-shezhi</v-icon>
 		          	</v-btn>
 		        </v-card-title>
@@ -92,6 +92,11 @@
             toShowCompoent() {
                 this.$router.push({
                     name: 'showComponent'
+                })
+            },
+            toSetup() {
+                this.$router.push({
+                    name: 'setup'
                 })
             }
 	    },

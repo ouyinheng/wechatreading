@@ -16,7 +16,15 @@ export default [
         path: '/readBook',
         name: 'readBook',
         component: () => import(/* webpackChunkName: "otherPages" */ './readBook.vue')
-    },   {
+    }, {
+        path: '/recomInfo',
+        name: 'recomInfo',
+        component: () => import(/* webpackChunkName: "otherPages" */ '../home/discover/discoverInfo.vue')
+    }, {
+        path: '/setup',
+        name: 'setup',
+        component: () => import(/* webpackChunkName: "otherPages" */ '../home/mine/setup.vue')
+    }, {
         path: '/local',
         name: 'local',
         component: () => import(/* webpackChunkName: "otherPages" */ './localImport.vue')

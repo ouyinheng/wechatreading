@@ -17,7 +17,7 @@
                 </v-col>
             </v-row>
         </section>
-		<not-found class="not-found" v-if="list.length === 0"></not-found>
+		<not-found class="not-found" v-if="list.length === 0 && !loading"></not-found>
 		<loading v-if="loading"></loading>
 	</v-app>
 </template>
@@ -88,7 +88,7 @@ export default {
 	// padding-top: 2.5rem;
     // box-sizing: border-box;
     .van-search {
-        padding-top: 2.5rem;
+        padding-top: 3rem;
     }
     .main_body {
         width: 100%;

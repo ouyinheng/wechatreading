@@ -43,6 +43,7 @@
 				</v-expand-transition>
 			</v-card>
 		</section>
+		<loading v-if="loading"></loading>
 	</div>
 </template>
 
@@ -61,7 +62,7 @@ export default {
 			loading: false,
 			selection: 1,
 			loading: false,
-			show: false,
+            show: false,
 		};
 	},
 	computed: {
@@ -71,7 +72,7 @@ export default {
 		swiper,
 		swiperSlide,
 		loading,
-		headerSearch,
+        headerSearch,
 	},
 	methods: {
 		...mapActions(["reqDiscoverList"]),
@@ -82,7 +83,12 @@ export default {
         setSelectInfo(item, index) {
             console.log(item)
             this.$set(item, 'show', item.show ? false : true)
-
+            this.$router.push({
+                name: 'recomInfo',
+                query: {
+                    link: item.link.split('//book.qidian.com/info/')[1]
+                }
+            })
         },
 		callback() {},
 		/**
@@ -154,8 +160,10 @@ export default {
 	},
 	created() {
 		if (this.getDiscoverList.length === 0) {
+            this.loading = true;
 			this.reqDiscoverList().then(() => {
 				console.log("asdf", this.getDiscoverList);
+                this.loading = false;
 			});
 		}
 	},

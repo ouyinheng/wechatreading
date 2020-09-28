@@ -92,9 +92,19 @@ export default {
         },
         getBookInfo(link) {
             return new Promise((resolve, reject) => {
-                axios.get(`/bookqd/${link}`).then(res => {
+                axios.get(`/bookqd/info/${link}`).then(res => {
                     let div = document.createElement('div');
-					div.innerHTML = res;
+                    div.innerHTML = res;
+                    let info = {
+                        cover: div.querySelector('.book-img img').getAttribute('src'),
+                        title: div.querySelector('.book-info h1 em').innerText,
+                        author: div.querySelector('.book-info span a').innerText,
+                        intro: div.querySelector('.book-info .intro').innerText,
+                        rate: div.querySelector('#score1').innerText,
+                        discuss: div.querySelector('#score2').innerText,
+                        readNumber: 456
+                    }
+                    resolve(info)
                 })
             })
         }
