@@ -10,12 +10,11 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import globalConfig from './static/config'
 import Vant from 'vant';
 import 'vant/lib/index.css';
-
 Vue.use(Vant);
 // require styles
 import 'swiper/dist/css/swiper.css'
 Vue.use(VueAwesomeSwiper, /* { default global options } */)
-Vue.prototype.globalConfig = globalConfig;
+Vue.prototype.$globalConfig = globalConfig;
 
 axios.defaults.headers = {
     'Content-type': 'application/json'

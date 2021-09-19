@@ -2,6 +2,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin") //引入插件
 const path = require('path')
 
 module.exports = {
+    publicPath : process.env.NODE_ENV === 'production' ? './' : '/',
 	devServer: {
 		host: '0.0.0.0',
 		port: '10086',
@@ -30,7 +31,7 @@ module.exports = {
                 }
 			},
 			'/qd': {
-				target:'https://www.qidian.com',
+				target:'https://m.qidian.com/',
 				ws: false,
 				changeOrigin: true,
 				pathRewrite: {

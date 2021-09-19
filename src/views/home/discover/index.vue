@@ -96,7 +96,7 @@ export default {
 		 *	排行榜 	rankwraplist
 		 */
 		getHomePage() {
-			this.axios.get(`/qd`).then((res) => {
+			this.axios.get(this.$globalConfig.qd).then((res) => {
 				let div = document.createElement("div");
 				div.innerHTML = res;
 				let list = div.querySelectorAll(
